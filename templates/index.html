@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPICcrypto - AI Crypto Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 EPICcrypto</h1>
+            <p class="subtitle">AI-Powered Cryptocurrency Analysis & Trading Suggestions</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="coinSelect">Select Cryptocurrency:</label>
+                <select id="coinSelect">
+                    <option value="">Loading...</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="timeframeSelect">Timeframe:</label>
+                <select id="timeframeSelect">
+                    <option value="1m">1 Minute</option>
+                    <option value="5m">5 Minutes</option>
+                    <option value="15m">15 Minutes</option>
+                    <option value="1h">1 Hour</option>
+                    <option value="4h">4 Hours</option>
+                    <option value="1d" selected>1 Day</option>
+                    <option value="1wk">1 Week</option>
+                    <option value="1mo">1 Month</option>
+                </select>
+            </div>
+
+            <button id="analyzeBtn" class="btn-primary">Analyze</button>
+            <button id="multiTimeframeBtn" class="btn-secondary">Multi-Timeframe Analysis</button>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing with AI...</p>
+        </div>
+
+        <div id="results" class="results" style="display: none;">
+            <div class="prediction-card">
+                <h2 id="coinName">Bitcoin</h2>
+                <div class="price-info">
+                    <div class="current-price">
+                        <span class="label">Current Price:</span>
+                        <span id="currentPrice" class="value">$0.00</span>
+                    </div>
+                    <div class="predicted-price">
+                        <span class="label">Predicted Price:</span>
+                        <span id="predictedPrice" class="value">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="recommendation">
+                    <div id="recommendationBadge" class="recommendation-badge">HOLD</div>
+                    <div class="confidence">
+                        <span class="label">Confidence:</span>
+                        <span id="confidence">0%</span>
+                    </div>
+                </div>
+
+                <div class="price-change">
+                    <span class="label">Expected Change:</span>
+                    <span id="priceChange" class="value">0%</span>
+                </div>
+
+                <div class="technical-indicators">
+                    <h3>Technical Indicators</h3>
+                    <div id="indicators" class="indicators-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="multiTimeframeResults" class="multi-timeframe" style="display: none;">
+            <h2>Multi-Timeframe Analysis</h2>
+            <div id="timeframeGrid" class="timeframe-grid"></div>
+        </div>
+
+        <footer>
+            <p>EPICcrypto - AI-driven cryptocurrency analysis for informed trading decisions</p>
+            <p class="disclaimer">⚠️ This is not financial advice. Always do your own research before trading.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
