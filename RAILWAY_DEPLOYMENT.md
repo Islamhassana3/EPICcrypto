@@ -138,7 +138,7 @@ Visit: `https://your-app.railway.app`
 
 1. **nixpacks.toml**
    - Optimized Python 3.11 environment
-   - Required system packages (gcc, gfortran)
+   - Required system packages (gcc for compiling native extensions)
    - Efficient pip installation
    - Minimal build time
 
