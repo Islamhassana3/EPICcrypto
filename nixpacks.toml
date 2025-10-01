@@ -1,7 +1,7 @@
 # Nixpacks configuration for Railway deployment
 # gcc is required for compiling Python packages with C extensions (numpy, pandas, scikit-learn)
 [phases.setup]
-nixPkgs = ["python311", "gcc"]
+nixPkgs = ["python311", "python311Packages.pip", "gcc"]
 
 [phases.install]
 cmds = [
