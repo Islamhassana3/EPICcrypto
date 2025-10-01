@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python311", "gcc", "gfortran", "libgfortran"]
+nixPkgs = ["python311", "gcc", "gfortran"]
 
 [phases.install]
 cmds = [
