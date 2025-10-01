@@ -1,10 +1,13 @@
 import numpy as np
 import pandas as pd
+import logging
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier
 from services.crypto_data import CryptoDataService
 import warnings
 warnings.filterwarnings('ignore')
+
+logger = logging.getLogger(__name__)
 
 class AIPredictor:
     """AI-based cryptocurrency prediction service using ML models"""
@@ -13,6 +16,7 @@ class AIPredictor:
         self.crypto_service = CryptoDataService()
         self.scaler = MinMaxScaler()
         self.model = None
+        logger.info("AIPredictor initialized")
         
     def prepare_features(self, data):
         """Prepare features for ML model"""

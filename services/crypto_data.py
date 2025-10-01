@@ -1,18 +1,35 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
+import logging
 from datetime import datetime, timedelta
+import time
+
+logger = logging.getLogger(__name__)
 
 class CryptoDataService:
-    """Service for fetching cryptocurrency data"""
+    """Service for fetching cryptocurrency data with caching"""
     
     def __init__(self):
         self.cache = {}
         self.cache_duration = 60  # Cache for 60 seconds
+        self.cache_timestamps = {}
+    
+    def _get_cache_key(self, symbol, timeframe):
+        """Generate cache key"""
+        return f"{symbol}:{timeframe}"
+    
+    def _is_cache_valid(self, cache_key):
+        """Check if cache is still valid"""
+        if cache_key not in self.cache_timestamps:
+            return False
+        
+        age = time.time() - self.cache_timestamps[cache_key]
+        return age < self.cache_duration
     
     def get_historical_data(self, symbol, timeframe='1d', limit=100):
         """
-        Fetch historical data for a cryptocurrency
+        Fetch historical data for a cryptocurrency with caching
         
         Args:
             symbol: Crypto symbol (e.g., 'BTC-USD')
@@ -22,6 +39,13 @@ class CryptoDataService:
         Returns:
             DataFrame with OHLCV data
         """
+        cache_key = self._get_cache_key(symbol, timeframe)
+        
+        # Check cache first
+        if cache_key in self.cache and self._is_cache_valid(cache_key):
+            logger.info(f"Cache hit for {cache_key}")
+            return self.cache[cache_key]
+        
         try:
             # Map timeframes to yfinance periods and intervals
             timeframe_map = {
@@ -36,15 +60,18 @@ class CryptoDataService:
             }
             
             if timeframe not in timeframe_map:
+                logger.warning(f"Invalid timeframe {timeframe}, defaulting to 1d")
                 timeframe = '1d'
             
             config = timeframe_map[timeframe]
             
-            # Fetch data from yfinance
+            # Fetch data from yfinance with timeout protection
+            logger.info(f"Fetching data for {symbol} with timeframe {timeframe}")
             ticker = yf.Ticker(symbol)
             data = ticker.history(period=config['period'], interval=config['interval'])
             
             if data.empty:
+                logger.warning(f"No data returned for {symbol}")
                 return None
             
             # For 4h timeframe, aggregate 1h data
@@ -61,10 +88,15 @@ class CryptoDataService:
             if len(data) > limit:
                 data = data.tail(limit)
             
+            # Store in cache
+            self.cache[cache_key] = data
+            self.cache_timestamps[cache_key] = time.time()
+            logger.info(f"Data cached for {cache_key}")
+            
             return data
             
         except Exception as e:
-            print(f"Error fetching data for {symbol}: {str(e)}")
+            logger.error(f"Error fetching data for {symbol}: {str(e)}", exc_info=True)
             return None
     
     def calculate_technical_indicators(self, data):
