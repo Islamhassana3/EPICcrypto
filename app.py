@@ -1,18 +1,43 @@
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 import os
+import logging
 from dotenv import load_dotenv
 from services.crypto_data import CryptoDataService
 from services.ai_predictor import AIPredictor
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
 
-# Initialize services
-crypto_service = CryptoDataService()
-ai_predictor = AIPredictor()
+# Configure CORS
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
+
+# Configure Flask for production
+app.config['JSON_SORT_KEYS'] = False
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
+
+# Initialize services with error handling
+try:
+    crypto_service = CryptoDataService()
+    ai_predictor = AIPredictor()
+    logger.info("Services initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize services: {str(e)}")
+    raise
 
 @app.route('/')
 def index():
