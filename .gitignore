@@ -20,10 +20,15 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Virtual Environment
 venv/
 env/
 ENV/
 .venv
+
+# Environment variables
+.env
 
 # ML Models
 *.h5
@@ -38,28 +43,3 @@ data/cache/
 
 # IDE
 .vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Environment
-.env
-.env.local
-
-# Logs
-*.log
-logs/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Node (for frontend)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Railway
-.railway/
