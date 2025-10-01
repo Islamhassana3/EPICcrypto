@@ -19,29 +19,27 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual Environment
 venv/
-ENV/
 env/
+ENV/
+.venv
 
 # Environment variables
 .env
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Model files
+# ML Models
 *.h5
 *.pkl
 *.joblib
+models/saved_models/
 
-# Logs
-*.log
+# Data
+data/cache/
+*.csv
+*.json.gz
+
+# IDE
+.vscode/
