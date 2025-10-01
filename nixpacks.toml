@@ -5,8 +5,8 @@ nixPkgs = ["python311", "gcc"]
 
 [phases.install]
 cmds = [
-    "pip install --upgrade pip setuptools wheel",
-    "pip install --no-cache-dir -r requirements.txt"
+    "python -m pip install --upgrade pip setuptools wheel",
+    "python -m pip install --no-cache-dir -r requirements.txt"
 ]
 
 [phases.build]
