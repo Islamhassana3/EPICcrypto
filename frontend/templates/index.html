@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crypto Prediction - EPICcrypto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 AI Crypto Prediction</h1>
+            <p class="subtitle">Multi-timeframe AI-powered cryptocurrency analysis</p>
+        </header>
+
+        <main>
+            <!-- Coin Selection -->
+            <section class="coin-selector">
+                <h2>Select Cryptocurrency</h2>
+                <div class="popular-coins" id="popularCoins">
+                    <button class="coin-btn active" data-coin="bitcoin">Bitcoin (BTC)</button>
+                    <button class="coin-btn" data-coin="ethereum">Ethereum (ETH)</button>
+                    <button class="coin-btn" data-coin="binancecoin">Binance Coin (BNB)</button>
+                    <button class="coin-btn" data-coin="cardano">Cardano (ADA)</button>
+                    <button class="coin-btn" data-coin="solana">Solana (SOL)</button>
+                    <button class="coin-btn" data-coin="ripple">XRP</button>
+                </div>
+            </section>
+
+            <!-- Current Price Card -->
+            <section class="price-card" id="priceCard">
+                <div class="loading">Loading price data...</div>
+            </section>
+
+            <!-- Timeframe Selector -->
+            <section class="timeframe-selector">
+                <h2>Select Timeframe</h2>
+                <div class="timeframe-buttons" id="timeframeButtons">
+                    <button class="timeframe-btn" data-timeframe="1m">1 Min</button>
+                    <button class="timeframe-btn" data-timeframe="5m">5 Min</button>
+                    <button class="timeframe-btn" data-timeframe="10m">10 Min</button>
+                    <button class="timeframe-btn" data-timeframe="30m">30 Min</button>
+                    <button class="timeframe-btn active" data-timeframe="1h">1 Hour</button>
+                    <button class="timeframe-btn" data-timeframe="daily">Daily</button>
+                    <button class="timeframe-btn" data-timeframe="monthly">Monthly</button>
+                    <button class="timeframe-btn" data-timeframe="yearly">Yearly</button>
+                </div>
+            </section>
+
+            <!-- Prediction Results -->
+            <section class="prediction-section" id="predictionSection">
+                <h2>AI Prediction & Recommendation</h2>
+                <div class="loading">Select a coin and timeframe to see predictions...</div>
+            </section>
+
+            <!-- All Timeframes Overview -->
+            <section class="all-timeframes" id="allTimeframes">
+                <h2>All Timeframes Overview</h2>
+                <button class="load-all-btn" id="loadAllBtn">Load All Timeframes</button>
+                <div class="timeframes-grid" id="timeframesGrid"></div>
+            </section>
+
+            <!-- Technical Analysis -->
+            <section class="technical-analysis" id="technicalAnalysis">
+                <h2>Technical Analysis</h2>
+                <div class="loading">Loading technical indicators...</div>
+            </section>
+        </main>
+
+        <footer>
+            <p>⚠️ Disclaimer: AI predictions are for informational purposes only. Not financial advice. Always do your own research.</p>
+            <p class="powered-by">Powered by CoinGecko API & Binance API | Deployed on Railway.app</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
