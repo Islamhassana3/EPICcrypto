@@ -81,8 +81,30 @@ if (-not (Test-Path ".env")) {
     Write-Host ""
 }
 
-# Get the port (default to 5000)
-$PORT = if ($env:PORT) { $env:PORT } else { "5000" }
+# Get the port (default to 5000) and find an available one
+$PREFERRED_PORT = if ($env:PORT) { $env:PORT } else { "5000" }
+Write-Host "🔍 Checking port availability..." -ForegroundColor Yellow
+
+try {
+    $AVAILABLE_PORT = & python find_port.py $PREFERRED_PORT
+    if ($LASTEXITCODE -ne 0) {
+        throw "Could not find available port"
+    }
+    
+    if ($AVAILABLE_PORT -ne $PREFERRED_PORT) {
+        Write-Host "⚠️  Port $PREFERRED_PORT is already in use" -ForegroundColor Yellow
+        Write-Host "✅ Using alternative port: $AVAILABLE_PORT" -ForegroundColor Green
+    } else {
+        Write-Host "✅ Port $AVAILABLE_PORT is available" -ForegroundColor Green
+    }
+} catch {
+    Write-Host "❌ Could not find an available port" -ForegroundColor Red
+    Read-Host "Press Enter to exit"
+    exit 1
+}
+Write-Host ""
+
+$PORT = $AVAILABLE_PORT
 
 Write-Host "==================================================" -ForegroundColor Cyan
 Write-Host "   🎉 Starting EPICcrypto..." -ForegroundColor Cyan

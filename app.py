@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 from backend.api.routes import api_bp
+from backend.utils.port_finder import find_available_port
 from services.crypto_data import CryptoDataService
 from services.ai_predictor import AIPredictor
 
@@ -52,5 +53,13 @@ app = create_app()
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    preferred_port = int(os.environ.get('PORT', 5000))
+    port = find_available_port(preferred_port)
+    
+    if port != preferred_port:
+        logger.warning(f"Port {preferred_port} was not available. Using port {port} instead.")
+        print(f"\n⚠️  Port {preferred_port} is already in use.")
+        print(f"✅ Starting server on alternative port: {port}")
+        print(f"🌐 Access the application at: http://localhost:{port}\n")
+    
     app.run(host='0.0.0.0', port=port, debug=os.environ.get('DEBUG', 'False') == 'True')

@@ -80,8 +80,26 @@ if [ ! -f ".env" ]; then
     echo ""
 fi
 
-# Get the port (default to 5000)
-PORT=${PORT:-5000}
+# Get the port (default to 5000) and find an available one
+PREFERRED_PORT=${PORT:-5000}
+echo "🔍 Checking port availability..."
+AVAILABLE_PORT=$(python3 find_port.py $PREFERRED_PORT 2>&1)
+
+if [ $? -ne 0 ]; then
+    echo -e "${RED}❌ Could not find an available port${NC}"
+    echo "$AVAILABLE_PORT"
+    exit 1
+fi
+
+if [ "$AVAILABLE_PORT" != "$PREFERRED_PORT" ]; then
+    echo -e "${YELLOW}⚠️  Port $PREFERRED_PORT is already in use${NC}"
+    echo -e "${GREEN}✅ Using alternative port: $AVAILABLE_PORT${NC}"
+else
+    echo -e "${GREEN}✅ Port $AVAILABLE_PORT is available${NC}"
+fi
+echo ""
+
+PORT=$AVAILABLE_PORT
 
 echo "=================================================="
 echo "🎉 Starting EPICcrypto..."
