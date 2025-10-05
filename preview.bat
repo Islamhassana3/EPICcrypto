@@ -72,8 +72,28 @@ if not exist ".env" (
     echo.
 )
 
-REM Get the port (default to 5000)
-if "%PORT%"=="" set PORT=5000
+REM Get the port (default to 5000) and find an available one
+if "%PORT%"=="" set PREFERRED_PORT=5000
+if not "%PORT%"=="" set PREFERRED_PORT=%PORT%
+
+echo Checking port availability...
+for /f %%i in ('python find_port.py %PREFERRED_PORT% 2^>nul') do set AVAILABLE_PORT=%%i
+
+if "%AVAILABLE_PORT%"=="" (
+    echo [ERROR] Could not find an available port
+    pause
+    exit /b 1
+)
+
+if not "%AVAILABLE_PORT%"=="%PREFERRED_PORT%" (
+    echo [WARNING] Port %PREFERRED_PORT% is already in use
+    echo [OK] Using alternative port: %AVAILABLE_PORT%
+) else (
+    echo [OK] Port %AVAILABLE_PORT% is available
+)
+echo.
+
+set PORT=%AVAILABLE_PORT%
 
 echo ==================================================
 echo    Starting EPICcrypto...
