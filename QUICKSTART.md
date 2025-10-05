@@ -241,6 +241,17 @@ http://localhost:5000/api/prediction/BTC-USD?timeframe=1d
 ## Troubleshooting
 
 ### Port Already in Use
+
+**Good news!** The application now automatically detects if port 5000 is in use and finds an available alternative port.
+
+When you run the app or use the preview scripts, you'll see:
+```
+⚠️  Port 5000 is already in use.
+✅ Starting server on alternative port: 5001
+🌐 Access the application at: http://localhost:5001
+```
+
+If you want to manually specify a different port:
 ```bash
 # Change port in .env file
 echo "PORT=8000" > .env
@@ -250,7 +261,7 @@ export PORT=8000
 python app.py
 ```
 
-Then visit: `http://localhost:8000`
+The app will use your specified port if available, or find the next available port automatically.
 
 ### Dependencies Won't Install
 ```bash
