@@ -6,6 +6,46 @@ An advanced AI-powered cryptocurrency prediction platform that provides actionab
 ![Flask](https://img.shields.io/badge/flask-v3.0-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
+## 🚀 Quick Preview
+
+**Get started in seconds with our one-click launch scripts!**
+
+[![Launch Preview](https://img.shields.io/badge/🚀_Launch-localhost:5000-brightgreen?style=for-the-badge)](http://localhost:5000)
+[![Preview Guide](https://img.shields.io/badge/📖_UI_Preview-Guide-blue?style=for-the-badge)](UI_PREVIEW.md)
+[![Quick Start](https://img.shields.io/badge/⚡_Quick-Start-orange?style=for-the-badge)](QUICKSTART.md)
+
+### 🎯 Launch Methods
+
+Choose your platform and run the preview script:
+
+**Unix/Linux/Mac:**
+```bash
+# One-line quick start
+./preview.sh
+```
+
+**Windows (Command Prompt):**
+```cmd
+preview.bat
+```
+
+**Windows (PowerShell):**
+```powershell
+.\preview.ps1
+```
+
+### ✨ What the scripts do:
+
+- ✅ Automatically check if dependencies are installed
+- ✅ Install missing Python packages if needed
+- ✅ Start the development server on port 5000
+- ✅ Automatically open the application in your default browser
+- ✅ Display helpful status messages
+
+**First time?** The script will handle everything - just run it and go! ☕
+
+---
+
 ## 🌟 Features
 
 - **Multi-Timeframe Predictions**: 1 min, 5 min, 10 min, 30 min, 1 hour, daily, monthly, and yearly predictions
